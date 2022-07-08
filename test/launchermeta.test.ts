@@ -18,6 +18,7 @@ const VersionManifest = object({
 test('version manifest', async () => {
 	const res = await axios.get('https://launchermeta.mojang.com/mc/game/version_manifest.json')
 	expect(res.status).toBe(200)
+	expect(res).not.toHaveCors()
 	expect(res.data).toMatchSchema(VersionManifest)
 })
 
@@ -81,6 +82,7 @@ const VersionMetadata = object({
 test('version metadata', async () => {
 	const res = await axios.get('https://launchermeta.mojang.com/v1/packages/f1cf44b0fb6fe11910bac139617b72bf3ef330b9/1.18.2.json')
 	expect(res.status).toBe(200)
+	expect(res).not.toHaveCors()
 	expect(res.data).toMatchSchema(VersionMetadata)
 })
 
@@ -93,5 +95,6 @@ const VersionAssets = object({
 test('version assets', async () => {
 	const res = await axios.get('https://launchermeta.mojang.com/v1/packages/de57d9f6d65a980f86df431603287248d4f148b5/1.18.json')
 	expect(res.status).toBe(200)
+	expect(res).not.toHaveCors()
 	expect(res.data).toMatchSchema(VersionAssets)
 })
