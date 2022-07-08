@@ -98,3 +98,19 @@ test('version assets', async () => {
 	expect(res).not.toHaveCors()
 	expect(res.data).toMatchSchema(VersionAssets)
 })
+
+test('navigate', async () => {
+	const manifestRes = await axios.get('https://launchermeta.mojang.com/mc/game/version_manifest.json')
+	expect(manifestRes.status).toBe(200)
+	expect(manifestRes.data).toMatchSchema(VersionManifest)
+
+	const snapshot = manifestRes.data.versions.find(v => v.id === manifestRes.data.latest.snapshot)
+	expect(snapshot).not.toBe(undefined)
+	const versionRes = await axios.get(snapshot.url)
+	expect(versionRes.status).toBe(200)
+	expect(versionRes.data).toMatchSchema(VersionMetadata)
+
+	const assetsRes = await axios.get(versionRes.data.assetIndex.url)
+	expect(assetsRes.status).toBe(200)
+	expect(assetsRes.data).toMatchSchema(VersionAssets)
+})
