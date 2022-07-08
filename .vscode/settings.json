@@ -1,0 +1,10 @@
+{
+	"[typescript]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll": true,
+			"source.organizeImports": true
+		}
+	},
+	"editor.insertSpaces": false,
+	"typescript.format.semicolons": "remove"
+}
