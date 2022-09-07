@@ -5,7 +5,7 @@ const MappingsPrefix = '# (c) 2020 Microsoft Corporation. These mappings are pro
 test('mappings', async () => {
 	const res = await axios.get('https://launcher.mojang.com/v1/objects/a661c6a55a0600bd391bdbbd6827654c05b2109c/client.txt')
 	expect(res.status).toBe(200)
-	expect(res).not.toHaveCors()
+	expect(res).toHaveCors()
 	expect(typeof res.data).toBe('string')
 	expect(res.data).toStartWith(MappingsPrefix)
 })
