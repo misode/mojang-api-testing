@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { expect, test } from 'vitest'
-import { array, number, object, optional, string } from 'zod'
+import { array, object, string } from 'zod'
 
 const UserUUID = object({
 	name: string(),
@@ -55,18 +55,4 @@ test('UUID to username (invalid UUID)', async () => {
 test('UUID to username (unknown UUID)', async () => {
 	const res = await axios.get('https://api.mojang.com/user/profile/cdb5aee90f904fdda63b316d38cd6b3b')
 	expect(res.status).toBe(204)
-})
-
-const UsernameHistory = array(object({
-	name: string(),
-	changedToAt: optional(number()),
-}))
-test('username history', async () => {
-	const res = await axios.get('https://api.mojang.com/user/profile/751b032b7fda41dca04a747784f7fed6/names')
-	expect(res.status).toBe(200)
-	expect(res).not.toHaveCors()
-	expect(res.data).toMatchSchema(UsernameHistory)
-	expect(res.data[1].name).toBe('misoloo')
-	expect(res.data[1].changedToAt).toBe(1444154885000)
-	expect(res.data[2].name).toBe('misode')
 })
