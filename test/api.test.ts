@@ -20,8 +20,8 @@ test('username to UUID (too long name)', async () => {
 })
 
 test('username to UUID (does not exist)', async () => {
-	const res = await axios.get('https://api.mojang.com/users/profiles/minecraft/thisnamedoesnotexist')
-	expect(res.status).toBe(204)
+	const res = await axios.get('https://api.mojang.com/users/profiles/minecraft/thisnamedoesnotexist', { validateStatus: false })
+	expect(res.status).toBe(404)
 })
 
 const MultipleUserUUID = array(UserUUID)
@@ -53,6 +53,6 @@ test('UUID to username (invalid UUID)', async () => {
 })
 
 test('UUID to username (unknown UUID)', async () => {
-	const res = await axios.get('https://api.mojang.com/user/profile/cdb5aee90f904fdda63b316d38cd6b3b')
-	expect(res.status).toBe(204)
+	const res = await axios.get('https://api.mojang.com/user/profile/cdb5aee90f904fdda63b316d38cd6b3b', { validateStatus: false })
+	expect(res.status).toBe(404)
 })
