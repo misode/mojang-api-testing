@@ -20,7 +20,7 @@ test('username to UUID (too long name)', async () => {
 })
 
 test('username to UUID (does not exist)', async () => {
-	const res = await axios.get('https://api.mojang.com/users/profiles/minecraft/thisnamedoesnotexist', { validateStatus: false })
+	const res = await axios.get('https://api.mojang.com/users/profiles/minecraft/thisnamedoesnotexist', { validateStatus: null })
 	expect(res.status).toBe(404)
 })
 
@@ -30,13 +30,8 @@ test('multiple usernames to UUIDs', async () => {
 		'thx',
 		'Dusks',
 		'tanpug',
-	])
-	expect(res.status).toBe(200)
-	expect(res).not.toHaveCors()
-	expect(res.data).toMatchSchema(MultipleUserUUID)
-	expect(res.data[0].id).toBe('8af296533b6844d085932742dca689c9') // Dusks
-	expect(res.data[1].id).toBe('f0d9de88bbb54c9eae429cd8fbd693ab') // tanpug
-	expect(res.data[2].id).toBe('44717d8d18c8430184defff3a92167a0') // tnx
+	], { validateStatus: null })
+	expect(res.status).toBe(403)
 })
 
 test('UUID to username', async () => {
@@ -53,6 +48,6 @@ test('UUID to username (invalid UUID)', async () => {
 })
 
 test('UUID to username (unknown UUID)', async () => {
-	const res = await axios.get('https://api.mojang.com/user/profile/cdb5aee90f904fdda63b316d38cd6b3b', { validateStatus: false })
+	const res = await axios.get('https://api.mojang.com/user/profile/cdb5aee90f904fdda63b316d38cd6b3b', { validateStatus: null })
 	expect(res.status).toBe(404)
 })

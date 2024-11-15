@@ -29,7 +29,7 @@ expect.extend({
 
 declare global {
 	namespace Vi {
-		interface JestAssertion {
+		interface Assertion {
 			toMatchSchema(type: ZodType): void,
 			toHaveCors(): void,
 			toStartWith(prefix: string): void,
