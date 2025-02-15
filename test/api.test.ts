@@ -32,6 +32,7 @@ test('multiple usernames to UUIDs', async () => {
 		'tanpug',
 	], { validateStatus: null })
 	expect(res.status).toBe(200)
+	expect(res.data).toMatchSchema(MultipleUserUUID)
 	expect(res.data.length === 3)
 	expect(res.data.some(r => r.name === 'Dusks' && r.id === '8af296533b6844d085932742dca689c9'))
 })

@@ -9,3 +9,13 @@ test('mappings', async () => {
 	expect(typeof res.data).toBe('string')
 	expect(res.data).toStartWith(MappingsPrefix)
 })
+
+test('mappings (latest)', async () => {
+	const res = await axios.get('https://piston-meta.mojang.com/mc/game/version_manifest_v2.json')
+	const res2 = await axios.get(res.data.versions[0].url)
+	const res3 = await axios.get(res2.data.downloads.client_mappings.url)
+	expect(res3.status).toBe(200)
+	expect(res3).toHaveCors()
+	expect(typeof res3.data).toBe('string')
+	expect(res3.data).toStartWith(MappingsPrefix)
+})
