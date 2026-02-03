@@ -40,9 +40,9 @@ const VersionMetadata = object({
 	complianceLevel: number(),
 	downloads: z.object({
 		client: DownloadMetadata,
-		client_mappings: DownloadMetadata,
+		client_mappings: DownloadMetadata.optional(),
 		server: DownloadMetadata,
-		server_mappings: DownloadMetadata,
+		server_mappings: DownloadMetadata.optional(),
 	}),
 	id: string(),
 	javaVersion: object({
